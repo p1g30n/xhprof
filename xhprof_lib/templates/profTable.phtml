@@ -25,13 +25,14 @@
 	} else {
           $color = 'inherit';
         }
+    $wall = isset($element['wt'])? number_format((floatval($element['wt'])/1000000), 2)." s (".$element['wt'].")" :'';
     ?>
     
     <tr>
 	<td style="background-color: <?php echo $color; ?>;"><span style="display: none"><?php echo $color; ?></span>&nbsp;</td>
         <td><a href="index.php?run=<?php echo $run1; ?>&amp;symbol=<?php echo urlencode($element['fn']); ?>"><?php echo htmlentities($element['fn'], ENT_QUOTES, 'UTF-8'); ?></a></td>
         <td><?php echo isset($element['ct'])?$element['ct']:''; ?></td>
-        <td><?php echo isset($element['wt'])?$element['wt']:''; ?></td>
+        <td><?php echo $wall ?></td>
         <td><?php echo isset($element['cpu'])?$element['cpu']:''; ?></td>
         <td><?php echo isset($element['mu'])?$element['mu']:''; ?></td>
         <td><?php echo isset($element['pmu'])?$element['pmu']:''; ?></td>

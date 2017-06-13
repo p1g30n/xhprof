@@ -13,7 +13,9 @@ function displayRuns($resultSet, $title = "")
         $html['c_url'] = htmlentities($row['c_url'], ENT_QUOTES, 'UTF-8');
         $date = strtotime($row['timestamp']);
         $date = date('M d H:i:s', $date);
-        echo "\t<tr><td><a href=\"?run={$row['id']}\">$date</a><br /><span class=\"runid\">{$row['id']}</span></td><td>{$row['cpu']}</td><td>{$row['wt']}</td><td>{$row['pmu']}</td><td><a href=\"?geturl={$url}\">{$html['url']}</a></td><td><a href=\"?getcurl={$c_url}\">{$html['c_url']}</a></td></tr>\n";
+        $wall = (number_format(floatval($row['wt'])/1000000, 2))." s (".$row['wt']."μs )";
+        $ram = (number_format((floatval($row['pmu']/1000000)), 2))." MB (".$row['pmu'].")";
+        echo "\t<tr><td><a href=\"?run={$row['id']}\">$date</a><br /><span class=\"runid\">{$row['id']}</span></td><td>{$row['cpu']}</td><td>{$wall}</td><td>{$ram}</td><td><a href=\"?geturl={$url}\">{$html['url']}</a></td><td><a href=\"?getcurl={$c_url}\">{$html['c_url']}</a></td></tr>\n";
     }
     echo "</tbody>\n";
     echo "</table>\n";
@@ -21,7 +23,7 @@ function displayRuns($resultSet, $title = "")
 <script type="text/javascript">
 $(document).ready(function()
     {
-        $("#box-table-a").tablesorter( {sortList: []} );
+        $("#box-table-a").tablesorter( { headers: {2: {sorter: 'digit'}}, sortList: []} );
     }
 );
 </script>
